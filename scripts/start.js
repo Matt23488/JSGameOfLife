@@ -6,7 +6,7 @@ $(function () {
     var showGridLines = $('#gridLinesButton').hasClass('active');
 
     var options = {
-        canvasState: new window.CanvasState(canvas, numCols * unitSize),
+        canvasState: new window.canvasState(canvas),
         unitSize: unitSize,
         numRows: numRows,
         numCols: numCols,

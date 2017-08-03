@@ -1,5 +1,9 @@
 (function (context, $) {
 
+    /**
+     * This is the constructor for an object that controls the Game of Life.
+     * @param {*} options Contains various options for intialization of the game state. See start.js for more info.
+     */
     function gameOfLife(options) {
         var self = this;
 
@@ -16,8 +20,15 @@
         var _newStates = [];
         var _loopHandle = 0;
 
+        /**
+         * This is how many generations have passed.
+         */
         self.generation = 0;
 
+        /**
+         * This handles mouse input.
+         * @param {*} mouseArgs The data associated with the mouse input.
+         */
         self.input = function (mouseArgs) {
             var x = context.Math.floor(mouseArgs.x / _unitSize);
             var y = context.Math.floor(mouseArgs.y / _unitSize);
@@ -32,12 +43,19 @@
             cell.draw(_canvasState, _showGridLines);
         };
 
+        /**
+         * This begins the periodic game loop.
+         */
         self.start = function () {
             saveStates();
 
             _loopHandle = context.setInterval(loop, 100);
         };
 
+        /**
+         * This pauses/unpauses the game loop.
+         * @return {boolean} The pause state after the method is executed.
+         */
         self.togglePause = function () {
             _paused = !_paused;
 
@@ -51,6 +69,9 @@
             return _paused;
         };
 
+        /**
+         * This stops the game loop and reverts the game to generation 0.
+         */
         self.stop = function () {
             context.clearInterval(_loopHandle);
             self.generation = 0;
@@ -64,6 +85,9 @@
             }
         };
 
+        /**
+         * This executes one iteration of the game loop.
+         */
         self.advance = function () {
             if (!_isRunning) {
                 saveStates();
@@ -72,6 +96,9 @@
             loop();
         };
 
+        /**
+         * This sets all cells to dead.
+         */
         self.clear = function () {
             for (var i = 0; i < _cells.length; i++) {
                 _cells[i].setState(false);
@@ -79,14 +106,27 @@
             }
         };
 
+        /**
+         * This toggles screen wrap.
+         */
         self.toggleWrap = function () {
             _wrap = !_wrap;
         };
 
+        /**
+         * This toggles grid lines.
+         * NOTE: The grid lines are drawn when cell.setState() is called,
+         *       so if the game isn't running, you won't see an effect immediately.
+         */
         self.toggleGridLines = function () {
             _showGridLines = !_showGridLines;
         };
 
+        /**
+         * This handles resizing the game board.
+         * @param {number} numRows The number of Rows to use.
+         * @param {number} numCols The number of Columns to use.
+         */
         self.resize = function (numRows, numCols) {
             _numRows = numRows;
             _numCols = numCols;
@@ -106,6 +146,10 @@
             }
         }
 
+        /**
+         * This serializes the game state into a string and returns it.
+         * @return {string} The serialized game state.
+         */
         self.exportSerializedState = function () {
             var state = '';
             for (var y = 0; y < _numRows; y++) {
@@ -117,6 +161,10 @@
             return state;
         };
 
+        /**
+         * This takes a serialized game state string and loads the game state.
+         * @param {*} stateString The serialized game state.
+         */
         self.importSerializedState = function (stateString) {
             var reader = new stringReader(stateString);
 
@@ -142,6 +190,9 @@
             }
         };
 
+        /**
+         * This is the main game loop.
+         */
         function loop () {
             _newStates = [];
             for (var y = 0; y < _numRows; y++) {
@@ -171,6 +222,12 @@
             $(self).triggerHandler('gol-generation');
         }
 
+        /**
+         * This returns the number of neighboring cells that are "alive"
+         * @param {number} x The x-coordinate of the cell we are checking against.
+         * @param {number} y The y-coordinate of the cell we are checking against.
+         * @return {number} The number of neighboring cells that are "alive"
+         */
         function getNumAliveNeighbors(x, y) {
             var numAliveNeighbors = 0;
             var neighbors = getNeighbors(x, y);
@@ -184,6 +241,12 @@
             return numAliveNeighbors;
         }
 
+        /**
+         * This returns an array containing all neighboring cells of a given cell.
+         * @param {number} x The x-coordinate of the cell we are checking against.
+         * @param {number} y The y-coordinate of the cell we are checking against.
+         * @return {array} An array containing all neighboring cells of the given cell.
+         */
         function getNeighbors(x, y) {
             var neighbors = [];
 
@@ -274,6 +337,12 @@
             return neighbors;
         }
         
+        /**
+         * This converts a coordinate pair into a single index -OR- converts a single index into a coordinate pair.
+         * @param {number} x The x-coordinate of the coordinate pair -OR- the index.
+         * @param {number} y The y-coordinate of the coordinate pair -OR- undefined if converting a single index.
+         * @return {*} The resulting index -OR- coordinate-pair as {x:number, y:number}
+         */
         function convertCoordinates(x, y) {
             if (typeof y === 'undefined') {
                 return  {
@@ -286,6 +355,9 @@
             }
         }
 
+        /**
+         * This saves the initial state of the game for restoring after the game is stopped.
+         */
         function saveStates() {
             _isRunning = true;
             _originalStates = [];
@@ -297,8 +369,15 @@
         self.resize(_numRows, _numCols);
     }
 
+    /**
+     * This is the constructor for an individual cell.
+     * @param {number} x The x-coordinate of the cell.
+     * @param {number} y The y-coordinate of the cell.
+     * @param {number} size The size (in pixels) of the cell.
+     */
     function cell(x, y, size) {
         var self = this;
+
         self.x = x * size;
         self.y = y * size;
         self.width = size;
@@ -308,6 +387,10 @@
         var _isAlive = false;
         var _lifetime = 0;
 
+        /**
+         * This sets the state of the cell.
+         * @param {boolean} alive The state to set.
+         */
         self.setState = function (alive) {
             _isAlive = alive;
 
@@ -315,34 +398,50 @@
             else _lifetime++;
         };
 
+        /**
+         * This toggles the state of the cell.
+         */
         self.toggleState = function () {
             _isAlive = !_isAlive;
 
             if (!_isAlive) _lifetime = 0;
         };
 
+        /**
+         * This returns the state of the cell.
+         * @return {boolean} The state of the cell.
+         */
         self.isAlive = () => _isAlive;
 
+        /**
+         * This draws the cell.
+         * @param {*} canvasState The object that controls the HTML5 canvas.
+         * @param {boolean} drawBorder A boolean indicating whether the cell border should be drawn (used for drawing grid lines).
+         */
         self.draw = function (canvasState, drawBorder) {
             var fillStyle = getFillStyle();
 
             canvasState.draw(
-                context.CanvasState.shape.rectangle,
-                context.CanvasState.style.fill,
+                context.canvasState.shape.rectangle,
+                context.canvasState.style.fill,
                 fillStyle,
                 self
             );
 
             if (drawBorder) {
                 canvasState.draw(
-                    context.CanvasState.shape.rectangle,
-                    context.CanvasState.style.stroke,
+                    context.canvasState.shape.rectangle,
+                    context.canvasState.style.stroke,
                     '#000',
                     self
                 );
             }
         }
 
+        /**
+         * This calculates the color of the cell based on if it's dead or alive, and how long it's been alive.
+         * @return {string} A standard CSS color string.
+         */
         function getFillStyle() {
             if (!_isAlive) return '#888';
 
@@ -376,6 +475,11 @@
         }
     }
 
+    /**
+     * Converts a number from 0-256 to a 2-digit hex string (256 is converted to '00').
+     * @param {number} num The decimal number to convert.
+     * @return {string} The 2-digit hex byte string.
+     */
     function convertToHexByte(num) {
         if (num === 256) return '00';
 
@@ -385,6 +489,11 @@
         return convertToHexDigit(highDigit) + convertToHexDigit(lowDigit);
     }
 
+    /**
+     * Converts a number from 0-15 to a 1-digit hext string.
+     * @param {number} num The decimal number to convert.
+     * @return {string} The 1-digit hex byte string.
+     */
     function convertToHexDigit(num) {
         switch (num) {
             case 0: return '0';

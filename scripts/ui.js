@@ -99,11 +99,6 @@ $(function () {
         gol.toggleGridLines();
     });
 
-    // TODO canvas handlers
-    //$('body').on('contextmenu', e => e.preventDefault());
-    // $('body').on('contextmenu', function (e) {
-    //     e.preventDefault();
-    // });
     $('body').on('mousedown', e => currentMouseButton = e.button)
     .on('mouseup', e => currentMouseButton = mouseButtons.none);
 
@@ -111,13 +106,6 @@ $(function () {
         if (currentMouseButton === mouseButtons.none) return;
 
         handleInput(e, currentMouseButton, this);
-
-        // var mouseArgs = getMousePos(this, e);
-        // $.extend(mouseArgs, {
-        //     button: currentMouseButton
-        // });
-
-        // gol.input(mouseArgs);
     })
     .on('mousemove', function (e) {
         if (currentMouseButton === mouseButtons.none) return;
@@ -125,15 +113,8 @@ $(function () {
         handleInput(e, currentMouseButton, this);
     })
     .on('contextmenu', e => e.preventDefault())
-    .click(function (e) {//e => handleInput(e, e.button, this));
+    .click(function (e) {
         handleInput(e, e.button, this);
-
-        // var mouseArgs = getMousePos(this, e);
-        // $.extend(mouseArgs, {
-        //     button: e.button
-        // });
-
-        // gol.input(mouseArgs);
     });
 
     $(gol).on('gol-generation', function () {
