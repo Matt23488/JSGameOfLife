@@ -77,6 +77,7 @@
             self.generation = 0;
             _isRunning = false;
             _paused = false;
+            _canvasState.clear();
             
             for (var i = 0; i < _cells.length; i++) {
                 _cells[i].setState(false);
@@ -100,6 +101,7 @@
          * This sets all cells to dead.
          */
         self.clear = function () {
+            _canvasState.clear();
             for (var i = 0; i < _cells.length; i++) {
                 _cells[i].setState(false);
                 _cells[i].draw(_canvasState, _showGridLines);
@@ -212,6 +214,8 @@
                     _newStates.push(newState);
                 }
             }
+
+            _canvasState.clear();
 
             for (var i = 0; i < _cells.length; i++) {
                 _cells[i].setState(_newStates[i]);
@@ -419,7 +423,7 @@
          * @param {boolean} drawBorder A boolean indicating whether the cell border should be drawn (used for drawing grid lines).
          */
         self.draw = function (canvasState, drawBorder) {
-            var fillStyle = getFillStyle();
+            var fillStyle = getFillStyle(drawBorder);
 
             canvasState.draw(
                 context.canvasState.shape.rectangle,
@@ -442,8 +446,9 @@
          * This calculates the color of the cell based on if it's dead or alive, and how long it's been alive.
          * @return {string} A standard CSS color string.
          */
-        function getFillStyle() {
-            if (!_isAlive) return '#888';
+        function getFillStyle(opaqueIfDead) {
+            if (!_isAlive && !opaqueIfDead) return 'rgba(0, 0, 0, 0)';
+            if (!_isAlive && opaqueIfDead) return '#888';
 
             var scale = 16;
             var r = 0;

@@ -38,7 +38,7 @@
          * @param {*} args An object containing coordinate/size information.
          */
         self.draw = function (shape, style, color, args) {
-            var ctx = canvas.getContext('2d');
+            var ctx = self.canvas.getContext('2d');
 
             if (shape === canvasState.shape.rectangle) {
                 if (style === canvasState.style.fill) {
@@ -50,6 +50,11 @@
                     ctx.strokeRect(args.x, args.y, args.width, args.height);
                 }
             }
+        };
+
+        self.clear = function () {
+            var ctx = self.canvas.getContext('2d');
+            ctx.clearRect(0, 0, parseInt($(self.canvas).attr('width')), parseInt($(self.canvas).attr('height')));
         };
     };
 
