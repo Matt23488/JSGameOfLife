@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Game of Life</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" />
+    <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet" integrity="sha384-wvfXpqpZZVQGK6TAh5PVlGOfQNHSoD2xbE+QkPxCAFlNEevoEH3Sl0sibVcOQVnN" crossorigin="anonymous">
+    <link rel="stylesheet" href="content/site.css" />
+</head>
+<body>
+<!-- body -->
+<div class="container text-center">
+
+<div class="row card">
+    <form id="sizeForm" class="form-inline">
+        <div class="input-group">
+            <!-- <label for="rowsTextBox">Rows:</label> -->
+            <span class="input-group-addon"><span class="fa fa-navicon"></span></span>
+            <input type="text" class="form-control" id="rowsTextBox" value="45" autocomplete="off" />
+        <!-- </div>
+        <div class="input-group"> -->
+            <!-- <label for="colsTextBox">Cols:</label> -->
+            <span class="input-group-addon"><span class="fa fa-navicon fa-rotate-90"></span></span>
+            <input type="text" class="form-control" id="colsTextBox" value="50" autocomplete="off" />
+        <!-- </div> -->
+        <div class="input-group-btn">
+            <button type="submit" id="submitSizeButton" class="btn btn-success"><i class="fa fa-check"></i></button>
+        </div>
+        </div>
+    </form>
+</div>
+<br>
+<div class="card">
+    <div class="row buffer-bottom">
+        <div class="btn-group control-group">
+            <button id="playButton" class="btn btn-lg btn-green"><span class="fa fa-play"></span></button>
+            <button id="pauseButton" class="btn btn-lg btn-blue" disabled><span class="fa fa-pause"></span></button>
+            <button id="stopButton" class="btn btn-lg btn-red" disabled><span class="fa fa-stop"></span></button>
+            <button id="advanceButton" class="btn btn-lg btn-yellow"><span class="fa fa-step-forward"></span></button>
+            <button id="openButton" class="btn btn-lg"><span class="fa fa-folder-o"></span></button>
+            <button id="saveButton" class="btn btn-lg"><span class="fa fa-save"></span></button>
+            <button id="clearButton" class="btn btn-lg"><span class="fa fa-trash"></span></button>
+            <button id="wrapButton" class="btn btn-lg"><span class="fa fa-link"></span></button>
+            <button id="gridLinesButton" class="btn btn-lg active"><span class="fa fa-th"></span></button>
+        </div>
+        <!--<div class="checkbox">
+            <label>
+                <input type="checkbox" id="wrapCheckBox" />
+                <span>Wrap</span>
+            </label>
+        </div>-->
+    </div>
+    <canvas id="gameCanvas" width="300" height="250"></canvas>
+    <h2 id="generationHeader">
+        <span class="fa fa-clock-o"></span>
+        <span id="generationDisplay">0</span>
+    </h2>
+    <input id="openFileDialog" type="file" class="hidden" />
+</div>
+<!-- Scripts -->
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+<script src="https://s3-us-west-2.amazonaws.com/s.cdpn.io/14082/FileSaver.js"></script>
+<script src="scripts/canvas.js"></script>
+<script src="scripts/mouse.js"></script>
+<script src="scripts/stringreader.js"></script>
+<script src="scripts/gol.js"></script>
+<script src="scripts/start.js"></script>
+<script src="scripts/ui.js"></script>
+</body>
+</html>

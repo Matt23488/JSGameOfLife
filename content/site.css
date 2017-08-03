@@ -1,0 +1,71 @@
+body {
+  background-image: url("images/2.png");
+}
+.input-group {
+  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+}
+.input-group .input-group-addon,
+.input-group .form-control {
+  border-width: 0 1px 0 0;
+  border-style: solid;
+  border-color: #232323;
+  color: #fafafa;
+  background-color: #565656;
+}
+#gameCanvas {
+  border: 1px solid black;
+}
+.buffer-bottom {
+  margin-bottom: 10px;
+}
+.btn:not(#submitSizeButton) {
+  color: white;
+  background-color: #565656;
+  border: 1px solid #232323;
+}
+.btn:not(#submitSizeButton):active,
+.btn:not(#submitSizeButton).active {
+  color: #565656;
+  background-color: white;
+}
+.btn:not(#submitSizeButton).btn-green {
+  color: #0a0;
+}
+.btn:not(#submitSizeButton).btn-green:active,
+.btn:not(#submitSizeButton).btn-green.active {
+  color: #fafafa;
+  background-color: #0a0;
+}
+.btn:not(#submitSizeButton).btn-blue {
+  color: #0Cf;
+}
+.btn:not(#submitSizeButton).btn-blue:active,
+.btn:not(#submitSizeButton).btn-blue.active {
+  color: #fafafa;
+  background-color: #0Cf;
+}
+.btn:not(#submitSizeButton).btn-red {
+  color: #f00;
+}
+.btn:not(#submitSizeButton).btn-red:active,
+.btn:not(#submitSizeButton).btn-red.active {
+  color: #fafafa;
+  background-color: #f00;
+}
+.btn:not(#submitSizeButton).btn-yellow {
+  color: #a0f;
+}
+.btn:not(#submitSizeButton).btn-yellow:active,
+.btn:not(#submitSizeButton).btn-yellow.active {
+  color: #fafafa;
+  background-color: #a0f;
+}
+form button,
+.btn-group,
+#gameCanvas {
+  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+}
+#generationHeader {
+  color: #fafafa;
+  text-shadow: 0 4px 8px rgba(0, 0, 0, 0.2), 0 6px 20px rgba(0, 0, 0, 0.19);
+}

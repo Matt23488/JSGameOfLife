@@ -1,0 +1,117 @@
+@red: #f00;
+@green: #0a0;
+@blue: #0Cf;
+@yellow: #a0f;
+@offwhite: #fafafa;
+@gray: #565656;
+@border: #232323;//#cdcdfa;
+
+body {
+    background-image: url("images/2.png");
+}
+
+.input-group {
+    //box-shadow: 10px 10px;
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+
+    .input-group-addon, .form-control {
+        // border: none;// 1px solid @border;
+        // border-right: 1px solid @border !important;
+        border-width: 0 1px 0 0;
+        border-style: solid;
+        border-color: @border;
+        color: @offwhite;
+        background-color: @gray;
+    }
+
+    // .input-group-addon {
+    //     // border-right: 1px solid @border;
+    //     border-width: 0 1px;
+    //     border-style: solid;
+    //     border-color: @border;
+
+    //     &:not(:first-child) {
+    //         border-left: 1px;
+    //     }
+    // }
+}
+
+// .card {
+//     padding: 10px;
+//     box-shadow: 10px 10px;
+//     background-color: white;
+//     //opacity: 0.5;
+// }
+
+#gameCanvas {
+    border: 1px solid black;
+    //opacity: 1;
+    //box-shadow: 10px 10px;
+}
+
+.buffer-bottom {
+    margin-bottom: 10px;
+}
+
+.btn:not(#submitSizeButton) {
+    color: white;
+    background-color: @gray;//@offwhite;
+    border: 1px solid @border;
+    //box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+    &:active, &.active {
+        color: @gray;//@offwhite !important;
+        background-color: white;
+    }
+
+    &.btn-green {
+        color: @green;
+        &:active, &.active {
+            color: @offwhite;
+            background-color: @green;
+        }
+    }
+
+    &.btn-blue {
+        color: @blue;
+        &:active, &.active {
+            color: @offwhite;
+            background-color: @blue;
+        }
+    }
+
+    &.btn-red {
+        color: @red;
+        &:active, &.active {
+            color: @offwhite;
+            background-color: @red;
+        }
+    }
+
+    &.btn-yellow {
+        color: @yellow;
+        &:active, &.active {
+            color: @offwhite;
+            background-color: @yellow;
+        }
+    }
+}
+
+form button, .btn-group, #gameCanvas {
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+}
+
+#generationHeader {
+    color: @offwhite;
+    text-shadow: 0 4px 8px rgba(0, 0, 0, 0.2), 0 6px 20px rgba(0, 0, 0, 0.19);
+}
+
+// #generationHeader {
+//     color: @blue;
+// }
+// #playButton {
+//     color: @green;
+//     &:active, &.active {
+//         color: @white;
+//         background-color: @green;
+//     }
+// }
