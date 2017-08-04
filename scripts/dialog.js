@@ -48,40 +48,40 @@
         } self.buttons = buttons;
 
         function show () {
-            _$handle.find('.dialog-title').text(_titleText);
-            _$handle.find('.dialog-body').text(_bodyText);
-            _$handle.find('.dialog-footer .btn').each(function (i) {
-                var buttonSettings = getButtonSettings(i);
-                $(this).text(buttonSettings.text).attr('class', 'btn btn-lg').addClass(buttonSettings.class);
-            });
+            _$handle.find('.modal-title').text(_titleText);
+            _$handle.find('.modal-body-content').text(_bodyText);
+            _$handle.find('.modal-footer .btn').each(applyButtonSettings);
 
-            _$handle.removeClass('hidden');
+            _$handle.modal('show');
         } self.show = show;
 
         function hide () {
-
+            _$handle.modal('hide');
         } self.hide = hide;
 
-        function getButtonSettings(i) {
-            var settings = {
-                text: '',
-                class: ''
-            };
-
+        function applyButtonSettings(i, btn) {
             if (_buttons === dialogPrompt.buttons.okCancel) {
                 switch (i) {
                     case 0:
-                        settings.text = 'OK';
-                        settings.class = 'btn-ok';
+                        $(btn)
+                            .html('<span class="fa fa-ban"></span>&nbsp;Cancel')
+                            .off('click')
+                            .click(function (e) {
+                                self.hide();
+                                $(self).trigger('dialog-result-cancel');
+                            });
                         break;
                     case 1:
-                        settings.text = 'Cancel';
-                        settings.class = 'btn-cancel';
+                        $(btn)
+                            .html('<span class="fa fa-check"></span>&nbsp;OK')
+                            .off('click')
+                            .click(function (e) {
+                                self.hide();
+                                $(self).trigger('dialog-result-ok', [_$handle.find('.modal-input').val()]);
+                            });
                         break;
                 }
             }
-
-            return settings;
         }
     }
 

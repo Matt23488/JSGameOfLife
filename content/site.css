@@ -18,102 +18,54 @@ canvas {
 .buffer-bottom {
   margin-bottom: 10px;
 }
-.btn:not(#submitSizeButton) {
+.btn:not(.btn-modal):not(#submitSizeButton) {
   color: white;
   background-color: #565656;
   border: 1px solid #232323;
 }
-.btn:not(#submitSizeButton):active,
-.btn:not(#submitSizeButton).active {
+.btn:not(.btn-modal):not(#submitSizeButton):active,
+.btn:not(.btn-modal):not(#submitSizeButton).active {
   color: #565656;
   background-color: white;
 }
-.btn:not(#submitSizeButton).btn-green {
+.btn:not(.btn-modal):not(#submitSizeButton).btn-green {
   color: #0a0;
 }
-.btn:not(#submitSizeButton).btn-green:active,
-.btn:not(#submitSizeButton).btn-green.active {
+.btn:not(.btn-modal):not(#submitSizeButton).btn-green:active,
+.btn:not(.btn-modal):not(#submitSizeButton).btn-green.active {
   color: #fafafa;
   background-color: #0a0;
 }
-.btn:not(#submitSizeButton).btn-blue {
+.btn:not(.btn-modal):not(#submitSizeButton).btn-blue {
   color: #0Cf;
 }
-.btn:not(#submitSizeButton).btn-blue:active,
-.btn:not(#submitSizeButton).btn-blue.active {
+.btn:not(.btn-modal):not(#submitSizeButton).btn-blue:active,
+.btn:not(.btn-modal):not(#submitSizeButton).btn-blue.active {
   color: #fafafa;
   background-color: #0Cf;
 }
-.btn:not(#submitSizeButton).btn-red {
+.btn:not(.btn-modal):not(#submitSizeButton).btn-red {
   color: #f00;
 }
-.btn:not(#submitSizeButton).btn-red:active,
-.btn:not(#submitSizeButton).btn-red.active {
+.btn:not(.btn-modal):not(#submitSizeButton).btn-red:active,
+.btn:not(.btn-modal):not(#submitSizeButton).btn-red.active {
   color: #fafafa;
   background-color: #f00;
 }
-.btn:not(#submitSizeButton).btn-yellow {
+.btn:not(.btn-modal):not(#submitSizeButton).btn-yellow {
   color: #a0f;
 }
-.btn:not(#submitSizeButton).btn-yellow:active,
-.btn:not(#submitSizeButton).btn-yellow.active {
+.btn:not(.btn-modal):not(#submitSizeButton).btn-yellow:active,
+.btn:not(.btn-modal):not(#submitSizeButton).btn-yellow.active {
   color: #fafafa;
   background-color: #a0f;
 }
 form button,
-.btn-group,
-canvas,
-.dialog-window {
+.btn-group:not(.btn-group-modal),
+canvas {
   box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
 }
 .generation-header {
   color: #fafafa;
   text-shadow: 0 4px 8px rgba(0, 0, 0, 0.2), 0 6px 20px rgba(0, 0, 0, 0.19);
-}
-.dialog-dimmer {
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 100vw;
-  height: 100vh;
-  background-color: rgba(0, 0, 0, 0.5);
-  z-index: 100;
-}
-.dialog-window {
-  text-align: left;
-  position: fixed;
-  max-width: 50%;
-  max-height: 50%;
-  top: 10%;
-  left: 50%;
-  transform: translateX(-50%);
-  background-color: white;
-  z-index: 101;
-}
-.dialog-window .dialog-header {
-  position: relative;
-  border-bottom: 1px solid #232323;
-}
-.dialog-window .dialog-header .dialog-title {
-  padding-left: 20px;
-}
-.dialog-window .dialog-header .fa-close {
-  position: absolute;
-  top: 0%;
-  right: 10px;
-  transform: translateY(-20%);
-  cursor: pointer;
-  font-size: 2em;
-}
-.dialog-window .dialog-header .fa-close:hover {
-  color: #a0f;
-}
-.dialog-window .dialog-body-container {
-  padding: 20px;
-  font-size: 1.5em;
-}
-.dialog-window .dialog-footer {
-  text-align: right;
-  padding: 10px;
-  border-top: 1px solid #232323;
 }

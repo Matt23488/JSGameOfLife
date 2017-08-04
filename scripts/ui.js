@@ -78,8 +78,7 @@ $(function () {
     });
 
     $('#saveButton').click(function () {
-        var blob = new Blob([gol.exportSerializedState()], { text: 'text/plain;charset=utf-8' });
-        saveAs(blob, "mygame.gol");
+        window.saveFilePrompt.show();
     });
 
     $('#clearButton').click(function () {
@@ -99,8 +98,9 @@ $(function () {
         gol.toggleGridLines();
     });
 
-    $('.dialog-dimmer').click(function (e) {
-        cancelBubble(e);
+    $(window.saveFilePrompt).on('dialog-result-ok', function (e, fileName) {
+        var blob = new Blob([gol.exportSerializedState()], { text: 'text/plain;charset=utf-8' });
+        saveAs(blob, fileName + '.gol');
     });
 
     $('body').on('mousedown', e => currentMouseButton = e.button)

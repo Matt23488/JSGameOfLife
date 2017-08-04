@@ -46,29 +46,32 @@
         <span id="generationDisplay">0</span>
     </h2>
 </div>
+
 </div>
 
-
-    <input id="openFileDialog" type="file" class="hidden" />
-    <div id="dialogContainer" class='hidden'>
-        <div class="dialog-dimmer"></div>
-        <div class="dialog-window">
-            <div class="dialog-header">
-                <h3 class="dialog-title">Test Title</h3>
-                <span class="fa fa-close"></span>
+<!-- Save/Load -->
+<input id="openFileDialog" type="file" class="hidden" />
+<div id="dialogPrompt" class="modal fade" role="dialog">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal"><span class="fa fa-close"></span></button>
+                <h4 class="modal-title">Test Title</h4>
             </div>
-            <div class="dialog-body-container">
-                <p class="dialog-body">lorem ipsum dolor sit amet. hocus pocus shifty schwifty shiggity shiggity schwah.</p>
-                <input class="form-control dialog-input" type="text" />
+            <div class="modal-body">
+                <p class="modal-body-content">lorem ipsum dolor sit amet. hocus pocus shifty schwifty shiggity shiggity schwah.</p>
+                <input class="form-control modal-input" type="text" />
             </div>
-            <div class="dialog-footer">
-                <div class="btn-group">
-                    <button type="button" class="btn btn-large">Button 1</button>
-                    <button type="button" class="btn btn-large">Button 2</button>
+            <div class="modal-footer">
+                <div class="btn-group btn-group-modal">
+                    <button type="button" class="btn btn-lg btn-modal btn-primary">Button 1</button>
+                    <button type="button" class="btn btn-lg btn-modal btn-primary">Button 2</button>
                 </div>
             </div>
         </div>
     </div>
+</div>
+
 <!-- Scripts -->
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>

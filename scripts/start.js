@@ -16,7 +16,7 @@ $(function () {
     window.gol = new gameOfLife(options);
 
     var dialogSettings = {
-        $handle: $('#dialogContainer'),
+        $handle: $('#dialogPrompt'),
         title: 'Filename',
         body: 'Type the filename you would like to use. (The .gol extension will be added automatically.)',
         buttons: dialogPrompt.buttons.okCancel
@@ -24,5 +24,5 @@ $(function () {
 
     var dialog = new dialogPrompt(dialogSettings);
 
-    dialog.show();
+    window.saveFilePrompt = dialog;
 });
