@@ -27,16 +27,17 @@
 
         /**
          * This handles mouse input.
-         * @param {*} mouseArgs The data associated with the mouse input.
+         * @param {*} args The data associated with the mouse input.
          */
-        self.input = function (mouseArgs) {
-            var x = context.Math.floor(mouseArgs.x / _unitSize);
-            var y = context.Math.floor(mouseArgs.y / _unitSize);
+        self.input = function (args) {
+            var x = context.Math.floor(args.x / _unitSize);
+            var y = context.Math.floor(args.y / _unitSize);
             var index = convertCoordinates(x, y);
             var cell = _cells[index];
 
+            cell.color = args.color;
             cell.setState(false);
-            if (mouseArgs.button === context.mouseButtons.left) {
+            if (args.button === context.mouseButtons.left) {
                 cell.setState(true);
             }
 
@@ -139,7 +140,7 @@
             _cells = [];
             for (var y = 0; y < _numRows; y++) {
                 for (var x = 0; x < _numCols; x++) {
-                    var newCell = new cell(x, y, _unitSize);
+                    var newCell = new cell(x, y, _unitSize, context.color.fromCssString('#0f0'));
                     
                     newCell.draw(_canvasState, _showGridLines);
 
@@ -201,14 +202,19 @@
                 for (var x = 0; x < _numCols; x++) {
                     var index = convertCoordinates(x, y);
                     var cell = _cells[index];
-                    var newState = cell.isAlive();
-                    var numAliveNeighbors = getNumAliveNeighbors(x, y);
+                    var newState = {
+                        isAlive: cell.isAlive(),
+                        color: cell.color
+                    };//cell.isAlive();
+                    var neighborInfo = getNeighborInfo(x, y);
 
                     if (cell.isAlive()) {
-                        newState = numAliveNeighbors === 2 || numAliveNeighbors === 3;
+                        newState.isAlive = neighborInfo.numAlive === 2 || neighborInfo.numAlive === 3;
+                        newState.color = cell.color;
                     }
                     else {
-                        newState = numAliveNeighbors === 3;
+                        newState.isAlive = neighborInfo.numAlive === 3;
+                        newState.color = neighborInfo.color;
                     }
 
                     _newStates.push(newState);
@@ -218,7 +224,8 @@
             _canvasState.clear();
 
             for (var i = 0; i < _cells.length; i++) {
-                _cells[i].setState(_newStates[i]);
+                _cells[i].setState(_newStates[i].isAlive);
+                _cells[i].color = _newStates[i].color;
                 _cells[i].draw(_canvasState, _showGridLines);
             }
 
@@ -227,22 +234,36 @@
         }
 
         /**
-         * This returns the number of neighboring cells that are "alive"
+         * This returns the number of neighboring cells that are "alive" as well as the average color of the alive neighbors.
          * @param {number} x The x-coordinate of the cell we are checking against.
          * @param {number} y The y-coordinate of the cell we are checking against.
-         * @return {number} The number of neighboring cells that are "alive"
+         * @return {*} The number of neighboring cells that are "alive" and the average color of the alive neighbors.
          */
-        function getNumAliveNeighbors(x, y) {
+        function getNeighborInfo(x, y) {
             var numAliveNeighbors = 0;
             var neighbors = getNeighbors(x, y);
+
+            var rSum = 0;
+            var gSum = 0;
+            var bSum = 0;
 
             for (var i = 0; i < neighbors.length; i++) {
                 if (neighbors[i].isAlive()) {
                     numAliveNeighbors++;
+                    rSum += neighbors[i].color.r;
+                    gSum += neighbors[i].color.g;
+                    bSum += neighbors[i].color.b;
                 }
             }
 
-            return numAliveNeighbors;
+            var finalR = Math.floor(rSum / numAliveNeighbors);
+            var finalG = Math.floor(gSum / numAliveNeighbors);
+            var finalB = Math.floor(bSum / numAliveNeighbors);
+
+            return {
+                numAlive: numAliveNeighbors,
+                color: new context.color(finalR, finalG, finalB, 1)
+            };
         }
 
         /**
@@ -378,14 +399,16 @@
      * @param {number} x The x-coordinate of the cell.
      * @param {number} y The y-coordinate of the cell.
      * @param {number} size The size (in pixels) of the cell.
+     * @param {string} color A CSS string representing the color of the cell.
      */
-    function cell(x, y, size) {
+    function cell(x, y, size, color) {
         var self = this;
 
         self.x = x * size;
         self.y = y * size;
         self.width = size;
         self.height = size;
+        self.color = color;
 
         var _size = size;
         var _isAlive = false;
@@ -440,85 +463,90 @@
                     self
                 );
             }
-        }
+        };
+
+        // self.setColor = function (color) {
+        //     _color = color;
+        // };
 
         /**
-         * This calculates the color of the cell based on if it's dead or alive, and how long it's been alive.
+         * This calculates the color of the cell based on if it's dead or alive.
          * @return {string} A standard CSS color string.
          */
         function getFillStyle(opaqueIfDead) {
             if (!_isAlive && !opaqueIfDead) return 'rgba(0, 0, 0, 0)';
             if (!_isAlive && opaqueIfDead) return '#888';
 
-            var scale = 16;
-            var r = 0;
-            var g = 0;
-            var b = 0;
+            return self.color.getCssString();
+            // var scale = 16;
+            // var r = 0;
+            // var g = 0;
+            // var b = 0;
 
-            if (_lifetime < scale * 1) {
-                r = ((_lifetime % scale) * (256 / scale) + 256) % 256;
-                g = 255;
-                b = 0;
-            }
-            else if (_lifetime < scale * 2) {
-                r = 255;
-                g = 255 - ((_lifetime % scale) * (256 / scale));
-                b = 0;
-            }
-            else if (_lifetime < scale * 2.5) {
-                r = 255 - ((_lifetime % scale) * (256 / scale));
-                g = 0;
-                b = 0;
-            }
-            else {
-                r = 127;
-                g = 0;
-                b = 0;
-            }
+            // if (_lifetime < scale * 1) {
+            //     r = ((_lifetime % scale) * (256 / scale) + 256) % 256;
+            //     g = 255;
+            //     b = 0;
+            // }
+            // else if (_lifetime < scale * 2) {
+            //     r = 255;
+            //     g = 255 - ((_lifetime % scale) * (256 / scale));
+            //     b = 0;
+            // }
+            // else if (_lifetime < scale * 2.5) {
+            //     r = 255 - ((_lifetime % scale) * (256 / scale));
+            //     g = 0;
+            //     b = 0;
+            // }
+            // else {
+            //     r = 127;
+            //     g = 0;
+            //     b = 0;
+            // }
 
-            return '#' + convertToHexByte(r) + convertToHexByte(g) + convertToHexByte(b);
+            // return '#' + convertToHexByte(r) + convertToHexByte(g) + convertToHexByte(b);
         }
     }
 
-    /**
-     * Converts a number from 0-256 to a 2-digit hex string (256 is converted to '00').
-     * @param {number} num The decimal number to convert.
-     * @return {string} The 2-digit hex byte string.
-     */
-    function convertToHexByte(num) {
-        if (num === 256) return '00';
+    // /**
+    //  * Converts a number from 0-256 to a 2-digit hex string (256 is converted to '00').
+    //  * @param {number} num The decimal number to convert.
+    //  * @return {string} The 2-digit hex byte string.
+    //  */
+    // function convertToHexByte(num) {
+    //     if (num === 256) return '00';
 
-        var highDigit = Math.floor(num / 16);
-        var lowDigit = num % 16;
+    //     var highDigit = Math.floor(num / 16);
+    //     var lowDigit = num % 16;
 
-        return convertToHexDigit(highDigit) + convertToHexDigit(lowDigit);
-    }
+    //     return convertToHexDigit(highDigit) + convertToHexDigit(lowDigit);
+    // }
 
-    /**
-     * Converts a number from 0-15 to a 1-digit hext string.
-     * @param {number} num The decimal number to convert.
-     * @return {string} The 1-digit hex byte string.
-     */
-    function convertToHexDigit(num) {
-        switch (num) {
-            case 0: return '0';
-            case 1: return '1';
-            case 2: return '2';
-            case 3: return '3';
-            case 4: return '4';
-            case 5: return '5';
-            case 6: return '6';
-            case 7: return '7';
-            case 8: return '8';
-            case 9: return '9';
-            case 10: return 'a';
-            case 11: return 'b';
-            case 12: return 'c';
-            case 13: return 'd';
-            case 14: return 'e';
-            case 15: return 'f';
-        }
-    }
+    // /**
+    //  * Converts a number from 0-15 to a 1-digit hext string.
+    //  * @param {number} num The decimal number to convert.
+    //  * @return {string} The 1-digit hex byte string.
+    //  */
+    // function convertToHexDigit(num) {
+    //     switch (num) {
+    //         case 0: return '0';
+    //         case 1: return '1';
+    //         case 2: return '2';
+    //         case 3: return '3';
+    //         case 4: return '4';
+    //         case 5: return '5';
+    //         case 6: return '6';
+    //         case 7: return '7';
+    //         case 8: return '8';
+    //         case 9: return '9';
+    //         case 10: return 'a';
+    //         case 11: return 'b';
+    //         case 12: return 'c';
+    //         case 13: return 'd';
+    //         case 14: return 'e';
+    //         case 15: return 'f';
+    //     }
+    // }
 
     context.gameOfLife = gameOfLife;
 

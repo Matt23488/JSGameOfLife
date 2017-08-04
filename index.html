@@ -38,6 +38,7 @@
             <button id="clearButton" class="btn btn-lg"><span class="fa fa-trash"></span></button>
             <button id="wrapButton" class="btn btn-lg"><span class="fa fa-link"></span></button>
             <button id="gridLinesButton" class="btn btn-lg active"><span class="fa fa-th"></span></button>
+            <button id="colorPickerButton" class="btn btn-lg"><span class="btn-color-display"></span></button>
         </div>
     </div>
     <canvas id="gameCanvas"></canvas>
@@ -48,6 +49,8 @@
 </div>
 
 </div>
+
+<input type="color" id="colorPicker" class="hidden" value="#00ff00" />
 
 <!-- Save/Load -->
 <input id="openFileDialog" type="file" class="hidden" />
@@ -80,6 +83,7 @@
 <script src="scripts/canvas.js"></script>
 <script src="scripts/mouse.js"></script>
 <script src="scripts/stringreader.js"></script>
+<script src="scripts/color.js"></script>
 <script src="scripts/gol.js"></script>
 <script src="scripts/start.js"></script>
 <script src="scripts/ui.js"></script>

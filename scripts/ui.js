@@ -98,6 +98,14 @@ $(function () {
         gol.toggleGridLines();
     });
 
+    $('#colorPickerButton').click(function () {
+        $('#colorPicker').trigger('click');
+    });
+
+    $('#colorPicker').change(function () {
+        $('#colorPickerButton .btn-color-display').css('background-color', $(this).val());
+    });
+
     $(window.saveFilePrompt).on('dialog-result-ok', function (e, fileName) {
         var blob = new Blob([gol.exportSerializedState()], { text: 'text/plain;charset=utf-8' });
         saveAs(blob, fileName + '.gol');
@@ -137,7 +145,8 @@ $(function () {
     function handleInput(e, button, canvas) {
         var mouseArgs = getMousePos(canvas, e);
         $.extend(mouseArgs, {
-            button: button
+            button: button,
+            color: window.color.fromCssString($('#colorPicker').val())
         });
 
         gol.input(mouseArgs);

@@ -18,6 +18,12 @@ canvas {
 .buffer-bottom {
   margin-bottom: 10px;
 }
+.btn .btn-color-display {
+  display: inline-block;
+  width: 1em;
+  height: 1em;
+  background-color: #0a0;
+}
 .btn:not(.btn-modal):not(#submitSizeButton) {
   color: white;
   background-color: #565656;
