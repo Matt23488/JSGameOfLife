@@ -14,4 +14,15 @@ $(function () {
     };
 
     window.gol = new gameOfLife(options);
+
+    var dialogSettings = {
+        $handle: $('#dialogContainer'),
+        title: 'Filename',
+        body: 'Type the filename you would like to use. (The .gol extension will be added automatically.)',
+        buttons: dialogPrompt.buttons.okCancel
+    };
+
+    var dialog = new dialogPrompt(dialogSettings);
+
+    dialog.show();
 });

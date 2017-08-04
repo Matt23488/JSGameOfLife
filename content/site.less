@@ -73,11 +73,69 @@ canvas {
     }
 }
 
-form button, .btn-group, canvas {
+form button, .btn-group, canvas, .dialog-window {
     box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
 }
 
 .generation-header {
     color: @offwhite;
     text-shadow: 0 4px 8px rgba(0, 0, 0, 0.2), 0 6px 20px rgba(0, 0, 0, 0.19);
+}
+
+.dialog-dimmer{
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    background-color: rgba(0, 0, 0, 0.5);
+    z-index: 100;
+}
+
+.dialog-window {
+    text-align: left;
+    position: fixed;
+    max-width: 50%;
+    max-height: 50%;
+    //width: 50%;
+    //height: 40%;
+    top: 10%;
+    left: 50%;
+    transform: translateX(-50%);
+    background-color: white;
+    z-index: 101;
+
+    .dialog-header {
+        position: relative;
+        border-bottom: 1px solid @border;
+
+        .dialog-title {
+            //text-align: left;
+            padding-left: 20px;
+        }
+
+        .fa-close {
+            position: absolute;
+            top: 0%;
+            right: 10px;
+            transform: translateY(-20%);
+            cursor: pointer;
+            font-size: 2em;
+
+            &:hover {
+                color: @yellow;
+            }
+        }
+    }
+
+    .dialog-body-container {
+        padding: 20px;
+        font-size: 1.5em;
+    }
+
+    .dialog-footer {
+        text-align: right;
+        padding: 10px;
+        border-top: 1px solid @border;
+    }
 }

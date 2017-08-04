@@ -45,12 +45,35 @@
         <span class="fa fa-clock-o"></span>
         <span id="generationDisplay">0</span>
     </h2>
-    <input id="openFileDialog" type="file" class="hidden" />
 </div>
+</div>
+
+
+    <input id="openFileDialog" type="file" class="hidden" />
+    <div id="dialogContainer" class='hidden'>
+        <div class="dialog-dimmer"></div>
+        <div class="dialog-window">
+            <div class="dialog-header">
+                <h3 class="dialog-title">Test Title</h3>
+                <span class="fa fa-close"></span>
+            </div>
+            <div class="dialog-body-container">
+                <p class="dialog-body">lorem ipsum dolor sit amet. hocus pocus shifty schwifty shiggity shiggity schwah.</p>
+                <input class="form-control dialog-input" type="text" />
+            </div>
+            <div class="dialog-footer">
+                <div class="btn-group">
+                    <button type="button" class="btn btn-large">Button 1</button>
+                    <button type="button" class="btn btn-large">Button 2</button>
+                </div>
+            </div>
+        </div>
+    </div>
 <!-- Scripts -->
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
 <script src="https://s3-us-west-2.amazonaws.com/s.cdpn.io/14082/FileSaver.js"></script>
+<script src="scripts/dialog.js"></script>
 <script src="scripts/canvas.js"></script>
 <script src="scripts/mouse.js"></script>
 <script src="scripts/stringreader.js"></script>

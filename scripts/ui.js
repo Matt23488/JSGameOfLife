@@ -99,6 +99,10 @@ $(function () {
         gol.toggleGridLines();
     });
 
+    $('.dialog-dimmer').click(function (e) {
+        cancelBubble(e);
+    });
+
     $('body').on('mousedown', e => currentMouseButton = e.button)
     .on('mouseup', e => currentMouseButton = mouseButtons.none);
 
@@ -137,5 +141,11 @@ $(function () {
         });
 
         gol.input(mouseArgs);
+    }
+
+    function cancelBubble (e) {
+        var evt = e || window.event;
+        if (evt.stopPropagation)    evt.stopPropagation();
+        if (evt.cancelBubble!=null) evt.cancelBubble = true;
     }
 });
