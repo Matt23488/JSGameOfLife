@@ -1,6 +1,14 @@
 (function (context, $) {
 
     /**
+     * TODO
+     * 
+     * -Save the color state in addition to the alive state when the game starts
+     * -Save the color information when serializing the game state
+     */
+
+
+    /**
      * This is the constructor for an object that controls the Game of Life.
      * @param {*} options Contains various options for intialization of the game state. See start.js for more info.
      */
