@@ -17,7 +17,7 @@
         self.read = function () {
             if (_currentPos === _string.length) return;
 
-            var val = _string[_currentPos];
+            var val = _string.charAt(_currentPos);
             _currentPos++;
 
             return val;
@@ -33,9 +33,9 @@
             var val = '';
 
             do {
-                val += _string[_currentPos];
+                val += _string.charAt(_currentPos);
                 _currentPos++;
-            } while (_currentPos < _string.length && _string[_currentPos] !== '\n');
+            } while (_currentPos < _string.length && _string.charAt(_currentPos) !== '\n');
             _currentPos++;
 
             return val;
